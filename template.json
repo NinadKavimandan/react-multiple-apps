@@ -1,0 +1,328 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sites_aaaatiwarishub_webapp_linux_name": {
+            "defaultValue": "aaaatiwarishub-webapp-linux",
+            "type": "String"
+        },
+        "serverfarms_dikhakha25_externalid": {
+            "defaultValue": "/subscriptions/c00d16c7-6c1f-4c03-9be1-6934a4c49682/resourceGroups/dikhakha2/providers/Microsoft.Web/serverfarms/dikhakha25",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('sites_aaaatiwarishub_webapp_linux_name')]",
+            "location": "Central US",
+            "tags": {
+                "Sample": "test"
+            },
+            "kind": "app,linux",
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '.scm.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Repository"
+                    }
+                ],
+                "serverFarmId": "[parameters('serverfarms_dikhakha25_externalid')]",
+                "reserved": true,
+                "isXenon": false,
+                "hyperV": false,
+                "siteConfig": {},
+                "scmSiteAlsoStopped": false,
+                "clientAffinityEnabled": false,
+                "clientCertEnabled": false,
+                "hostNamesDisabled": false,
+                "containerSize": 0,
+                "dailyMemoryTimeQuota": 0,
+                "httpsOnly": false,
+                "redundancyMode": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '/web')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_aaaatiwarishub_webapp_linux_name'))]"
+            ],
+            "tags": {
+                "Sample": "test"
+            },
+            "properties": {
+                "numberOfWorkers": 1,
+                "defaultDocuments": [
+                    "Default.htm",
+                    "Default.html",
+                    "Default.asp",
+                    "index.htm",
+                    "index.html",
+                    "iisstart.htm",
+                    "default.aspx",
+                    "index.php",
+                    "hostingstart.html"
+                ],
+                "netFrameworkVersion": "v4.0",
+                "linuxFxVersion": "NODE|14-lts",
+                "requestTracingEnabled": false,
+                "remoteDebuggingEnabled": false,
+                "httpLoggingEnabled": false,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": false,
+                "publishingUsername": "$aaaatiwarishub-webapp-linux",
+                "azureStorageAccounts": {},
+                "scmType": "None",
+                "use32BitWorkerProcess": true,
+                "webSocketsEnabled": false,
+                "alwaysOn": true,
+                "appCommandLine": "npm start",
+                "managedPipelineMode": "Integrated",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": true
+                    }
+                ],
+                "loadBalancing": "LeastRequests",
+                "experiments": {
+                    "rampUpRules": []
+                },
+                "autoHealEnabled": false,
+                "localMySqlEnabled": false,
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictionsUseMain": false,
+                "http20Enabled": false,
+                "minTlsVersion": "1.2",
+                "ftpsState": "AllAllowed",
+                "reservedInstanceCount": 0
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '/01624f9694a14dbcbba9531e79142115')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_aaaatiwarishub_webapp_linux_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "N/A",
+                "author": "N/A",
+                "deployer": "GITHUB_ZIP_DEPLOY",
+                "message": "Created via a push deployment",
+                "start_time": "2020-11-18T05:18:43.5637221Z",
+                "end_time": "2020-11-18T05:18:45.1668542Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '/1cca3646-a063-4049-ae4f-cdf2a7a8bb91')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_aaaatiwarishub_webapp_linux_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author": "GitHubAction",
+                "deployer": "GitHubAction",
+                "message": "{\"GitHubAction_ConfiguredCDEndPoint\":\"https://github.com/tiwarishub/NodeWithGulp/blob/8cff026c1dc8bad869e3bb910daf9a163afed691/.github/workflows/workflow-cc3c.yml\",\"commitId\":\"8cff026c1dc8bad869e3bb910daf9a163afed691\",\"message\":\"Set up continuous delivery successfully\",\"type\":\"CDDeploymentConfiguration\",\"workflowFile\":\"workflow-cc3c.yml\",\"workflowName\":\"workflow-cc3c.yml\"}",
+                "start_time": "2021-02-10T18:00:23.7322903Z",
+                "end_time": "2021-02-10T18:00:23.7322903Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '/3b31c2d1-5c57-453b-a02a-dac5aed20e9d')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_aaaatiwarishub_webapp_linux_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author": "GitHubAction",
+                "deployer": "GitHubAction",
+                "message": "{\"GitHubAction_ConfiguredCDEndPoint\":\"https://github.com/tiwarishub/NodeWithGulp/blob/df26855ad8da6b06e68fcd0038df60b07e3036b6/.github/workflows/workflow-3956.yml\",\"commitId\":\"df26855ad8da6b06e68fcd0038df60b07e3036b6\",\"message\":\"Set up continuous delivery successfully\",\"type\":\"CDDeploymentConfiguration\",\"workflowFile\":\"workflow-3956.yml\",\"workflowName\":\"workflow-3956.yml\"}",
+                "start_time": "2021-02-10T17:55:50.8720648Z",
+                "end_time": "2021-02-10T17:55:50.8720648Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '/448c3e3a062cca85827e8e845dd9684eb73e72891605676728188')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_aaaatiwarishub_webapp_linux_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author": "anuragc617",
+                "deployer": "GitHub",
+                "message": "{\"type\":\"Deployment\",\"sha\":\"448c3e3a062cca85827e8e845dd9684eb73e7289\",\"repoName\":\"anuragc617/acr-build-helloworld-node\",\"slotName\":\"production\"}",
+                "start_time": "2020-11-18T05:18:48.3243074Z",
+                "end_time": "2020-11-18T05:18:48.3243074Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '/857cf4de5b9d40cd9db58dd332675da5')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_aaaatiwarishub_webapp_linux_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "N/A",
+                "author": "N/A",
+                "deployer": "GITHUB_ZIP_DEPLOY",
+                "message": "Created via a push deployment",
+                "start_time": "2021-01-05T11:35:56.2605447Z",
+                "end_time": "2021-01-05T11:36:00.8640534Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '/904ef86d9c46381def19e290848a25c1fef19aab1605677032293')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_aaaatiwarishub_webapp_linux_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author": "anuragc617",
+                "deployer": "GitHub",
+                "message": "{\"type\":\"Deployment\",\"sha\":\"904ef86d9c46381def19e290848a25c1fef19aab\",\"repoName\":\"anuragc617/acr-build-helloworld-node\",\"slotName\":\"production\"}",
+                "start_time": "2020-11-18T05:23:52.5854444Z",
+                "end_time": "2020-11-18T05:23:52.5854444Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '/93ab7ca25b2c4016850f9526f3cd5fa9')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_aaaatiwarishub_webapp_linux_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author_email": "N/A",
+                "author": "N/A",
+                "deployer": "GITHUB_ZIP_DEPLOY",
+                "message": "Created via a push deployment",
+                "start_time": "2020-11-18T05:23:41.5872213Z",
+                "end_time": "2020-11-18T05:23:45.1089796Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '/b500aef52b6a8b5a0e6f6fc24e6dfcab07a4785c1605676705704')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_aaaatiwarishub_webapp_linux_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author": "anuragc617",
+                "deployer": "GitHub",
+                "message": "{\"type\":\"Deployment\",\"sha\":\"b500aef52b6a8b5a0e6f6fc24e6dfcab07a4785c\",\"repoName\":\"anuragc617/acr-build-helloworld-node\",\"slotName\":\"production\"}",
+                "start_time": "2020-11-18T05:18:25.971305Z",
+                "end_time": "2020-11-18T05:18:25.971305Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '/e4452e51694f71646d35bf847cda86e7d415eff21609846566553')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_aaaatiwarishub_webapp_linux_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author": "ddivanshu",
+                "deployer": "GitHub",
+                "message": "{\"type\":\"Deployment\",\"sha\":\"e4452e51694f71646d35bf847cda86e7d415eff2\",\"repoName\":\"ddivanshu/acr-build-helloworld-node\",\"slotName\":\"production\"}",
+                "start_time": "2021-01-05T11:36:06.9384832Z",
+                "end_time": "2021-01-05T11:36:06.9384832Z",
+                "active": true
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '/fe073aa7-9669-4abb-8c8f-e1e3163b24ea')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_aaaatiwarishub_webapp_linux_name'))]"
+            ],
+            "properties": {
+                "status": 4,
+                "author": "GitHubAction",
+                "deployer": "GitHubAction",
+                "message": "{\"GitHubAction_ConfiguredCDEndPoint\":\"https://github.com/tiwarishub/docker-node-hello-world/blob/3eaf65e409db51a7b6a82b1234efdbc10dd622dd/.github/workflows/workflow-d45c.yml\",\"commitId\":\"3eaf65e409db51a7b6a82b1234efdbc10dd622dd\",\"message\":\"Set up continuous delivery successfully\",\"type\":\"CDDeploymentConfiguration\",\"workflowFile\":\"workflow-d45c.yml\",\"workflowName\":\"workflow-d45c.yml\"}",
+                "start_time": "2020-12-17T10:29:34.9716381Z",
+                "end_time": "2020-12-17T10:29:34.9716381Z",
+                "active": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_aaaatiwarishub_webapp_linux_name'), '/', parameters('sites_aaaatiwarishub_webapp_linux_name'), '.azurewebsites.net')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_aaaatiwarishub_webapp_linux_name'))]"
+            ],
+            "properties": {
+                "siteName": "aaaatiwarishub-webapp-linux",
+                "hostNameType": "Verified"
+            }
+        }
+    ]
+}
